@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Aperture Personal Terminal - Adán</title>
+    <style>
+        /* ESTILO APERTURE SCIENCE CRT */
+        body {
+            background-color: #1a1a1a; /* Gris muy oscuro, no negro puro */
+            color: #eeeeee;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            /* Efecto de líneas de escaneado */
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+        }
+
+        .container {
+            width: 850px;
+            border: 3px solid #ffffff;
+            background-color: #0d0d0d;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glitch decorativo en las esquinas */
+        .container::before {
+            content: "v.042-RIGBY";
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 10px;
+            color: #666;
+        }
+
+        header {
+            border-bottom: 3px solid #ffffff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo-box {
+            border: 2px solid #fff;
+            display: inline-block;
+            padding: 5px 20px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
+
+        /* COLUMNA IZQUIERDA */
+        .profile-pic {
+            width: 100%;
+            border: 2px solid #fff;
+            filter: grayscale(100%) brightness(1.1) contrast(1.2);
+            margin-bottom: 15px;
+        }
+
+        .info-block {
+            border: 1px solid #fff;
+            padding: 10px;
+            font-size: 0.9em;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* COLUMNA DERECHA */
+        h2 {
+            background-color: #ffffff;
+            color: #000;
+            padding: 5px 10px;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            margin-top: 0;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            border-left: 1px solid #444;
+            padding-left: 15px;
+        }
+
+        .contact-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            border: 1px solid #fff;
+            padding: 5px;
+            text-align: center;
+            font-size: 0.8em;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* Alerta parpadeante */
+        .alert {
+            border: 2px solid #fff;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; border-color: #fff; }
+            50% { opacity: 0.5; border-color: #666; }
+            100% { opacity: 1; border-color: #fff; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-box">APERTURE SCIENCE</div>
+        <h1>SUBJECT: ADÁN</h1>
+        <p>Status: Monitoring Rigbycat Entity...</p>
+    </header>
+
+    <div class="main-grid">
+        <div class="left-side">
+            <img src="download.jpeg" alt="Subject Photo" class="profile-pic">
+            
+            <div class="info-block">
+                <strong>Mood:</strong> Testing<br>
+                <strong>Location:</strong> Spain<br>
+                <strong>Class:</strong> Scientific
+            </div>
+
+            <div class="contact-btns">
+                <div class="btn">MESSAGE</div>
+                <div class="btn">ADD FRIEND</div>
+                <div class="btn">REPORT</div>
+                <div class="btn">SHARE</div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="section">
+                <h2>Adán's Blurbs:</h2>
+                <p><i>"I know about tech and i love splatoon, im from spain. Portal fans, Roblox players, and anyone! I'm nice with everyone ;-)"</i></p>
+            </div>
+
+            <div class="section">
+                <h2>Testing Log:</h2>
+                <p>Currently dealing with an AI that doesn't stop generating images. Sudo command was necessary.</p>
+                <p>The Rigbycat division is performing within expected parameters (chaotic).</p>
+            </div>
+
+            <div class="alert">
+                ⚠️ WARNING: COMPANION CUBE INTEGRITY AT 12% ⚠️
+            </div>
+
+            <div class="section">
+                <h2>Interests:</h2>
+                <p><strong>Gaming:</strong> Portal, Splatoon, Roblox.</p>
+                <p><strong>Science:</strong> Avoiding Headcrabs, defying GLaDOS.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
