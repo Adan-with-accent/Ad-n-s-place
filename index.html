@@ -1,165 +1,147 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aperture Personal Terminal - Adán</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* ESTILO APERTURE SCIENCE CRT - RECONSTRUIDO */
+        :root {
+            --bg: #0f001a;              /* Morado muy oscuro casi negro */
+            --text: #d4a5ff;            /* Violeta claro neón */
+            --accent: #a020f0;          /* Morado fuerte */
+            --border: #7d26cd;          /* Morado medio */
+            --shadow: rgba(160, 32, 240, 0.4);  /* Sombra morada */
+            --alert: #ff00aa;           /* Rosa-violeta alerta */
+        }
         body {
-            background-color: #1a1a1a; 
-            color: #eeeeee;
-            font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 40px;
-            display: flex;
-            justify-content: center;
+            padding: 40px 20px;
+            font-family: 'VT323', monospace;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
         }
-
-        /* CAPA DE ESCANEO (CRT) - Ahora por encima de todo */
+        /* CRT scanline sutil en morado */
         body::before {
             content: " ";
-            display: block;
             position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            /* Líneas horizontales oscuras */
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
-            background-size: 100% 4px;
-            z-index: 9999;
+            inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0,
+                transparent 2px,
+                rgba(160, 32, 240, 0.08) 2px,
+                rgba(160, 32, 240, 0.08) 4px
+            );
             pointer-events: none;
+            z-index: 9999;
+            animation: scanline 10s linear infinite;
         }
-
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
         .container {
-            width: 850px;
-            border: 3px solid #ffffff;
-            background-color: #0d0d0d;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 3px solid var(--border);
+            background: rgba(15, 0, 26, 0.92);
             padding: 30px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            box-shadow: 0 0 30px var(--shadow);
             position: relative;
             z-index: 10;
         }
-
-        .container::before {
-            content: "v.042-RIGBY";
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            font-size: 10px;
-            color: #666;
-        }
-
-        header {
-            border-bottom: 3px solid #ffffff;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
         .logo-box {
-            border: 2px solid #fff;
+            border: 2px solid var(--border);
             display: inline-block;
             padding: 5px 20px;
-            font-weight: bold;
-            letter-spacing: 5px;
+            font-size: 1.8em;
+            letter-spacing: 6px;
             margin-bottom: 10px;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
         }
-
         .main-grid {
             display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 30px;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
         }
-
-        /* COLUMNA IZQUIERDA */
-        .profile-pic {
+        @media (max-width: 768px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+        img.profile-pic {
             width: 100%;
-            border: 2px solid #fff;
-            filter: grayscale(100%) brightness(1.1) contrast(1.2);
-            margin-bottom: 15px;
+            border: 3px solid var(--border);
+            filter: brightness(1.1) contrast(1.2) hue-rotate(240deg);
+            box-shadow: 0 0 15px var(--shadow);
         }
-
-        .info-block {
-            border: 1px solid #fff;
-            padding: 10px;
-            font-size: 0.9em;
-            background: rgba(255,255,255,0.05);
-            margin-bottom: 15px;
+        .info-block, .discord-folder {
+            border: 1px solid var(--border);
+            padding: 15px;
+            margin: 15px 0;
+            background: rgba(160, 32, 240, 0.08);
         }
-
-        /* BOTÓN DISCORD DESPLEGABLE */
-        .discord-folder {
-            border: 1px solid #fff;
-            background: rgba(255, 255, 255, 0.05);
-            max-height: 40px;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .discord-folder.active {
-            max-height: 120px;
-        }
-
         .trigger-btn {
             width: 100%;
-            padding: 10px;
-            background: none;
+            padding: 12px;
+            background: var(--accent);
+            color: white;
             border: none;
-            color: #fff;
-            font-family: inherit;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
             text-transform: uppercase;
-            font-size: 0.8em;
-            text-align: center;
+            letter-spacing: 1px;
         }
-
         .trigger-btn:hover {
-            background: #fff;
-            color: #000;
+            background: #c218f5;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(162, 32, 240, 0.6);
         }
-
         .discord-content {
             padding: 15px;
             text-align: center;
-            border-top: 1px dashed #fff;
+            border-top: 1px dashed var(--border);
+            max-height: 200px;
+            overflow-y: auto;
         }
-
         .user-underline {
             display: block;
-            margin-top: 5px;
+            margin-top: 8px;
             text-decoration: underline;
             font-weight: bold;
-            letter-spacing: 1px;
+            color: var(--accent);
         }
-
-        /* COLUMNA DERECHA */
         h2 {
-            background-color: #ffffff;
-            color: #000;
-            padding: 5px 10px;
-            font-size: 1.1em;
-            text-transform: uppercase;
-            margin-top: 0;
+            background: var(--accent);
+            color: white;
+            padding: 8px 12px;
+            margin: 0 0 15px 0;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
-
-        .section {
-            margin-bottom: 30px;
-            border-left: 1px solid #444;
-            padding-left: 15px;
-        }
-
         .alert {
-            border: 2px solid #fff;
-            padding: 10px;
+            border: 3px solid var(--alert);
+            padding: 15px;
             text-align: center;
             font-weight: bold;
+            color: var(--alert);
             animation: pulse 2s infinite;
+            margin: 20px 0;
         }
-
         @keyframes pulse {
-            0% { opacity: 1; border-color: #fff; }
-            50% { opacity: 0.5; border-color: #666; }
-            100% { opacity: 1; border-color: #fff; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .visitas {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 20px 0;
+            color: var(--accent);
         }
     </style>
 </head>
@@ -178,14 +160,14 @@
             
             <div class="info-block">
                 <strong>Mood:</strong> Testing<br>
-                <strong>Location:</strong> Spain <br>
+                <strong>Location:</strong> Spain<br>
                 <strong>Class:</strong> Scientific
             </div>
 
             <div class="discord-folder" id="discordBox">
-                <button class="trigger-btn" onclick="toggleDiscord()">Discord</button>
-                <div class="discord-content">
-                    USER RECOGNIZED:
+                <button class="trigger-btn" onclick="toggleDiscord()">DISCORD ACCESS</button>
+                <div class="discord-content" id="discordContent">
+                    USER RECOGNIZED:<br>
                     <span class="user-underline">alexanderxzy</span>
                 </div>
             </div>
@@ -212,15 +194,39 @@
                 <p><strong>Gaming:</strong> Portal, Splatoon, Roblox.</p>
                 <p><strong>Science:</strong> Avoiding Headcrabs, defying GLaDOS.</p>
             </div>
+
+            <p class="visitas" id="visitas">Visitas: 0</p>
         </div>
     </div>
 </div>
 
 <script>
+    // Toggle Discord
     function toggleDiscord() {
         const box = document.getElementById('discordBox');
         box.classList.toggle('active');
     }
+
+    // Contador de visitas
+    let visitas = localStorage.getItem('visitas') || 0;
+    visitas++;
+    localStorage.setItem('visitas', visitas);
+    document.getElementById('visitas').textContent = `Visitas: ${visitas}`;
+
+    // Easter egg: pulsa R 3 veces
+    let rCount = 0;
+    document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'r') {
+            rCount++;
+            if (rCount === 3) {
+                alert("CHOCHOTEEEE 🫂");
+                document.body.style.background = `hsl(270, 80%, ${Math.random()*20 + 10}%)`;
+                rCount = 0;
+            }
+        } else {
+            rCount = 0;
+        }
+    });
 </script>
 
 </body>
