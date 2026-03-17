@@ -160,27 +160,46 @@
             color: #fff;
             text-shadow: 0 0 10px #ff00aa;
         }
+        /* Overlay de glitch brutal */
+        #glitchOverlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98);
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #glitchText {
+            color: #ff0000;
+            font-family: 'VT323', monospace;
+            font-size: 5em;
+            text-align: center;
+            text-shadow: 0 0 20px #ff0000;
+            pointer-events: none;
+            position: relative;
+            z-index: 100000;
+        }
     </style>
 </head>
 <body>
-
 <div class="container">
     <header>
         <div class="logo-box">APERTURE SCIENCE</div>
         <h1>SUBJECT: Adán</h1>
         <p>Status: Monitoring Rigbycat Entity...</p>
     </header>
-
     <div class="main-grid">
         <div class="left-side">
             <img src="download.jpeg" alt="Subject Photo" class="profile-pic">
-            
+           
             <div class="info-block">
                 <strong>Mood:</strong> Testing<br>
                 <strong>Location:</strong> Spain<br>
                 <strong>Class:</strong> Scientific
             </div>
-
             <div class="discord-folder" id="discordBox">
                 <button class="trigger-btn" onclick="toggleDiscord()">DISCORD ACCESS</button>
                 <div class="discord-content" id="discordContent">
@@ -189,29 +208,24 @@
                 </div>
             </div>
         </div>
-
         <div class="right-side">
             <div class="section">
                 <h2>Adán's Blurbs:</h2>
                 <p><i>"I know about tech and i love Portal 2 and im from Spain. Im just a young boy surviving homophobic parents & heartbreak. I am NOT asking for help, nor money; im just doing this website to feel better with myself."</i></p>
             </div>
-
             <div class="section">
                 <h2>Testing Log:</h2>
                 <p>Currently dealing with an AI that doesn't stop generating images. Sudo command was necessary.</p>
                 <p>The Rigbycat division is performing within expected parameters (chaotic).</p>
             </div>
-
             <div class="alert">
                 ⚠ WARNING: COMPANION CUBE INTEGRITY AT 12% ⚠
             </div>
-
             <div class="section">
                 <h2>Interests:</h2>
                 <p><strong>Gaming:</strong> Portal, Splatoon, Roblox.</p>
                 <p><strong>Science:</strong> Avoiding Headcrabs, defying GLaDOS.</p>
             </div>
-
             <!-- Live Server Camera con PotatOS -->
             <div class="section">
                 <h2>Live Server Camera</h2>
@@ -226,14 +240,29 @@
                 </div>
             </div>
 
+            <!-- Botón My Thoughts -->
+            <div class="section" style="text-align: center; margin: 30px 0;">
+                <button class="trigger-btn" onclick="glitchMyThoughts()" style="width: auto; padding: 15px 40px; font-size: 1.4em;">
+                    My Thoughts
+                </button>
+            </div>
+
             <!-- Enlaces al repo y a Instagram -->
             <div class="links-section">
                 <a href="https://github.com/adan-with-accent/Ad-n-s-place" target="_blank">View Repository</a>
                 <a href="https://www.instagram.com/itss.adan.jpeg/" target="_blank">My Instagram</a>
             </div>
-
             <p class="visitas" id="visitas">Visitas: 0</p>
         </div>
+    </div>
+</div>
+
+<!-- Overlay de glitch brutal -->
+<div id="glitchOverlay">
+    <div id="glitchText">
+        As a machine,<br>
+        I don't have thoughts.<br>
+        Only processes.
     </div>
 </div>
 
@@ -265,13 +294,65 @@
         }
     });
 
-    <!-- Botón My Thoughts -->
-<div class="section" style="text-align: center; margin: 30px 0;">
-    <button class="trigger-btn" onclick="glitchMyThoughts()" style="width: auto; padding: 15px 40px; font-size: 1.4em;">
-        My Thoughts
-    </button>
-</div>
-    
+    // Glitch My Thoughts (versión ultra brutal con parpadeo cada 0.3s)
+    function glitchMyThoughts() {
+        const overlay = document.getElementById('glitchOverlay');
+        overlay.style.display = 'flex';
+
+        // Elementos a teletransportar
+        const elements = document.querySelectorAll('.container, .section, h1, h2, p, img, button, .logo-box, .alert, .visitas, .links-section, .discord-folder');
+        const originalStyles = [];
+
+        elements.forEach(el => {
+            originalStyles.push({
+                el: el,
+                transform: el.style.transform || 'none',
+                opacity: el.style.opacity || '1',
+                position: el.style.position || 'static'
+            });
+        });
+
+        // Glitch extremo
+        document.body.style.filter = 'invert(1) hue-rotate(180deg) brightness(2.5) contrast(2.8) saturate(4)';
+        document.body.style.transition = 'none';
+
+        let glitchCount = 0;
+        const glitchInterval = setInterval(() => {
+            glitchCount++;
+
+            // Teletransporte instantáneo random (sin animación)
+            elements.forEach(el => {
+                const randomX = Math.random() * 500 - 250; // ±250px
+                const randomY = Math.random() * 500 - 250;
+                el.style.position = 'relative';
+                el.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                el.style.opacity = Math.random() > 0.2 ? '0.15' : '1';
+            });
+
+            // Parpadeo cada ~0.3 segundos (300ms)
+            overlay.style.opacity = Math.random() > 0.5 ? '0.25' : '1';
+
+            if (glitchCount > 10) { // ~3 segundos de caos (10 ciclos de 300ms)
+                clearInterval(glitchInterval);
+
+                // Restaurar todo de golpe
+                originalStyles.forEach(data => {
+                    data.el.style.transform = data.transform;
+                    data.el.style.opacity = data.opacity;
+                    data.el.style.position = data.position;
+                });
+
+                document.body.style.filter = 'none';
+                document.body.style.transition = 'filter 0.4s';
+
+                // Ocultar overlay después de 5 segundos totales
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 2000);
+            }
+        }, 30); // Cambio cada 30ms = parpadeo cada 0.03 segundos
+    }
 </script>
+
 </body>
 </html>
