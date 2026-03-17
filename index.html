@@ -264,7 +264,91 @@
             rCount = 0;
         }
     });
-</script>
 
+    <!-- Botón My Thoughts -->
+<div class="section" style="text-align: center; margin: 30px 0;">
+    <button class="trigger-btn" onclick="glitchMyThoughts()" style="width: auto; padding: 15px 40px; font-size: 1.4em;">
+        My Thoughts
+    </button>
+</div>
+
+<!-- Overlay de glitch brutal -->
+<div id="glitchOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 99999; justify-content: center; align-items: center; flex-direction: column;">
+    <div id="glitchText" style="color: #ff0000; font-family: 'VT323', monospace; font-size: 5em; text-align: center; text-shadow: 0 0 20px #ff0000; pointer-events: none;">
+        As a machine,<br>
+        I don't have thoughts.<br>
+        Only processes.
+    </div>
+</div>
+
+<script>
+    function glitchMyThoughts() {
+        const overlay = document.getElementById('glitchOverlay');
+        overlay.style.display = 'flex';
+
+        // Guardamos los elementos que vamos a teletransportar
+        const elements = document.querySelectorAll('.container, .section, h1, h2, p, img, button, .logo-box, .alert, .visitas, .links-section');
+        const originalPositions = [];
+
+        // Guardamos posiciones originales para restaurar después
+        elements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            originalPositions.push({
+                el: el,
+                top: el.style.top || 'auto',
+                left: el.style.left || 'auto',
+                transform: el.style.transform || 'none',
+                position: el.style.position || 'static'
+            });
+        });
+
+        // Glitch extremo: teletransporte + parpadeo brutal + invertido
+        document.body.style.filter = 'invert(1) hue-rotate(180deg) brightness(2) contrast(2) saturate(3)';
+        document.body.style.transition = 'none';
+
+        let glitchCount = 0;
+        const glitchInterval = setInterval(() => {
+            glitchCount++;
+
+            // Teletransporte random (sin animación, instantáneo)
+            elements.forEach(el => {
+                const randomX = Math.random() * 300 - 150; // ±150px
+                const randomY = Math.random() * 300 - 150;
+                el.style.position = 'relative';
+                el.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                el.style.opacity = Math.random() > 0.4 ? '0.2' : '1';
+            });
+
+            // Parpadeo ultra rápido del overlay y texto
+            overlay.style.opacity = Math.random() > 0.3 ? '0.3' : '1';
+
+            // Cambio de color random del texto rojo
+            const redShades = ['#ff0000', '#ff3333', '#cc0000', '#ff1a1a'];
+            document.getElementById('glitchText').style.color = redShades[Math.floor(Math.random() * redShades.length)];
+
+            if (glitchCount > 35) { // ~2.1–2.8 segundos de locura
+                clearInterval(glitchInterval);
+
+                // Restaurar todo de golpe
+                elements.forEach((data, i) => {
+                    data.el.style.position = data.position;
+                    data.el.style.top = data.top;
+                    data.el.style.left = data.left;
+                    data.el.style.transform = data.transform;
+                    data.el.style.opacity = '1';
+                });
+
+                document.body.style.filter = 'none';
+                document.body.style.transition = 'filter 0.4s';
+
+                // Ocultar overlay después de 5 segundos totales
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 2200); // Ajusta si quieres más tiempo
+            }
+        }, 60); // Cambio cada ~60ms = muy intenso
+    }
+</script>
+</script>
 </body>
 </html>
