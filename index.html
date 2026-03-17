@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Favicon añadido aquí ↓ -->
+    <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.png" type="image/png"> <!-- por si usas PNG también -->
+    <link rel="icon" href="/favicon.png" type="image/png">
     <title>Aperture Personal Terminal - Adán</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f001a;              /* Morado muy oscuro casi negro */
-            --text: #d4a5ff;            /* Violeta claro neón */
-            --accent: #a020f0;          /* Morado fuerte */
-            --border: #7d26cd;          /* Morado medio */
-            --shadow: rgba(160, 32, 240, 0.4);  /* Sombra morada */
-            --alert: #ff00aa;           /* Rosa-violeta alerta */
+            --bg: #0f001a;
+            --text: #d4a5ff;
+            --accent: #a020f0;
+            --border: #7d26cd;
+            --shadow: rgba(160, 32, 240, 0.4);
+            --alert: #ff00aa;
         }
         body {
             margin: 0;
@@ -27,7 +27,6 @@
             position: relative;
             overflow-x: hidden;
         }
-        /* CRT scanline sutil en morado */
         body::before {
             content: " ";
             position: fixed;
@@ -146,6 +145,21 @@
             margin: 20px 0;
             color: var(--accent);
         }
+        .links-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .links-section a {
+            color: #ff00aa;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+        .links-section a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #ff00aa;
+        }
     </style>
 </head>
 <body>
@@ -179,7 +193,7 @@
         <div class="right-side">
             <div class="section">
                 <h2>Adán's Blurbs:</h2>
-                <p><i>"I know about tech and i love Portal 2 and im from Spain. Im just a young boy surviving homophobic parents & hearbreak. I am NOT asking for help, nor money; im just doing this website to feel better with myself."</i></p>
+                <p><i>"I know about tech and i love Portal 2 and im from Spain. Im just a young boy surviving homophobic parents & heartbreak. I am NOT asking for help, nor money; im just doing this website to feel better with myself."</i></p>
             </div>
 
             <div class="section">
@@ -198,18 +212,24 @@
                 <p><strong>Science:</strong> Avoiding Headcrabs, defying GLaDOS.</p>
             </div>
 
-            <!-- NUEVA SECCIÓN: Live Server Camera con PotatOS local -->
+            <!-- Live Server Camera con PotatOS -->
             <div class="section">
                 <h2>Live Server Camera</h2>
                 <p class="alert" style="color: #ff00aa; border-color: #ff00aa; font-size: 1.1em;">
                     ⚠ ACTIVE MONITORING: POTATOS CORE INTEGRITY 100% ⚠
                 </p>
                 <div style="text-align: center; margin: 20px 0;">
-                    <img src="server.jpeg" alt="PotatOS - GLaDOS Potato Core" style="max-width: 100%; border: 3px solid var(--border); box-shadow: 0 0 20px var(--shadow); border-radius: 10px;">
+                    <img src="potatos.png" alt="PotatOS - GLaDOS Potato Core" style="max-width: 100%; border: 3px solid var(--border); box-shadow: 0 0 20px var(--shadow); border-radius: 10px;">
                     <p style="margin-top: 10px; font-size: 0.9em; color: #a020f0;">
                         Camera Feed: Stable | No unauthorized testing detected... yet.
                     </p>
                 </div>
+            </div>
+
+            <!-- Enlaces al repo y a Instagram -->
+            <div class="links-section">
+                <a href="https://github.com/adan-with-accent/Ad-n-s-place" target="_blank">View Repository</a>
+                <a href="https://instagram.com/@itss_adan_jpeg" target="_blank">My Instagram</a>
             </div>
 
             <p class="visitas" id="visitas">Visitas: 0</p>
