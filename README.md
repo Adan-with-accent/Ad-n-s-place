@@ -1,2 +1,5 @@
-Rigbycat based terminal (personal info)
-Feel free to use as a base while giving credits
+Fancy Purple & Black personal website
+
+Everyone can use it as a base, but give credits plz.
+
+it uses HTML, a bit of CSS and some JS.
