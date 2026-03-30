@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.png" type="image/png">
-    <title>Aperture Personal Terminal - Adán</title>
+    <title>Aperture Personal Terminal - Adán [OVERGROWN]</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,7 +13,9 @@
             --border: #7d26cd;
             --shadow: rgba(160, 32, 240, 0.4);
             --alert: #ff00aa;
+            --mold-green: rgba(45, 66, 19, 0.4); /* Color moho */
         }
+
         body {
             margin: 0;
             padding: 40px 20px;
@@ -26,7 +25,27 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            /* Textura de suciedad general */
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
         }
+
+        /* CAPA DE PLANTAS Y MOHO (Esquinas) */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: 
+                url('https://i.imgur.com/uX8H4pG.png'), /* Enredaderas superior derecha */
+                url('https://i.imgur.com/uX8H4pG.png'); /* Enredaderas inferior izquierda */
+            background-position: top right, bottom left;
+            background-repeat: no-repeat;
+            background-size: 400px;
+            opacity: 0.6;
+            filter: hue-rotate(280deg) brightness(0.5); /* Ajuste para que pegue con el morado */
+            pointer-events: none;
+            z-index: 1000;
+        }
+
         body::before {
             content: " ";
             position: fixed;
@@ -42,50 +61,70 @@
             z-index: 9999;
             animation: scanline 10s linear infinite;
         }
+
         @keyframes scanline {
             0% { transform: translateY(-100%); }
             100% { transform: translateY(100%); }
         }
+
         .container {
             max-width: 900px;
             margin: 0 auto;
             border: 3px solid var(--border);
-            background: rgba(15, 0, 26, 0.92);
+            background: rgba(15, 0, 26, 0.95);
             padding: 30px;
             box-shadow: 0 0 30px var(--shadow);
             position: relative;
             z-index: 10;
+            /* Efecto de suciedad en el panel */
+            background-image: url('https://www.transparenttextures.com/patterns/grunge-wall.png');
         }
+
+        /* MANCHAS DE MOHO EN EL CONTENEDOR */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 10% 10%, var(--mold-green) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, var(--mold-green) 0%, transparent 25%);
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
         .logo-box {
             border: 2px solid var(--border);
             display: inline-block;
             padding: 5px 20px;
-            font-size: 1.8em;
-            letter-spacing: 6px;
             margin-bottom: 10px;
             color: var(--accent);
             text-shadow: 0 0 10px var(--accent);
         }
+
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 40px;
         }
+
         @media (max-width: 768px) {
             .main-grid { grid-template-columns: 1fr; }
         }
+
         img.profile-pic {
             width: 100%;
             border: 3px solid var(--border);
-            filter: brightness(1.1) contrast(1.2) hue-rotate(240deg);
+            filter: brightness(0.8) contrast(1.2) sepia(0.5) hue-rotate(240deg);
             box-shadow: 0 0 15px var(--shadow);
         }
-        .info-block, .discord-folder {
+
+        .info-block, .discord-folder, .section {
             border: 1px solid var(--border);
             padding: 15px;
             margin: 15px 0;
-            background: rgba(160, 32, 240, 0.08);
+            background: rgba(160, 32, 240, 0.05);
+            position: relative;
         }
+
         .trigger-btn {
             width: 100%;
             padding: 12px;
@@ -97,35 +136,21 @@
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
+
         .trigger-btn:hover {
             background: #c218f5;
-            transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(162, 32, 240, 0.6);
         }
-        .discord-content {
-            padding: 15px;
-            text-align: center;
-            border-top: 1px dashed var(--border);
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        .user-underline {
-            display: block;
-            margin-top: 8px;
-            text-decoration: underline;
-            font-weight: bold;
-            color: var(--accent);
-        }
+
         h2 {
             background: var(--accent);
             color: white;
             padding: 8px 12px;
             margin: 0 0 15px 0;
             font-family: 'Poppins', sans-serif;
-            text-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
+
         .alert {
             border: 3px solid var(--alert);
             padding: 15px;
@@ -135,32 +160,29 @@
             animation: pulse 2s infinite;
             margin: 20px 0;
         }
+
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
+            0%, 100% { opacity: 1; } 50% { opacity: 0.6; }
         }
-        .visitas {
-            text-align: center;
-            font-size: 1.2em;
-            margin: 20px 0;
-            color: var(--accent);
-        }
-        .links-section {
+
+        /* NEW: SSTV / ANALOG HORROR SECTION */
+        .sstv-box {
+            background: #000;
+            border: 2px solid #ff0000;
+            padding: 10px;
             margin-top: 20px;
             text-align: center;
         }
-        .links-section a {
-            color: #ff00aa;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.1em;
-            transition: all 0.3s;
+        
+        .sstv-static {
+            width: 100%;
+            height: 150px;
+            background: url('https://media.giphy.com/media/oEI9uWUic9clBKRLnN/giphy.gif');
+            background-size: cover;
+            opacity: 0.3;
+            margin-bottom: 10px;
         }
-        .links-section a:hover {
-            color: #fff;
-            text-shadow: 0 0 10px #ff00aa;
-        }
-        /* Overlay de glitch brutal */
+
         #glitchOverlay {
             display: none;
             position: fixed;
@@ -172,187 +194,119 @@
             align-items: center;
             flex-direction: column;
         }
+
         #glitchText {
             color: #ff0000;
             font-family: 'VT323', monospace;
-            font-size: 5em;
+            font-size: 4em;
             text-align: center;
             text-shadow: 0 0 20px #ff0000;
-            pointer-events: none;
-            position: relative;
-            z-index: 100000;
         }
     </style>
 </head>
 <body>
+
 <div class="container">
-<header>
-    <div class="logo-box" style="padding: 0; border: none; background: transparent;">
-        <img src="mindglitch-logo.png" alt="MindGlitch" style="max-height: 80px; width: auto; filter: drop-shadow(0 0 15px var(--accent));">
-    </div>
-    <h1>SUBJECT: Adán</h1>
-    <p>Status: Monitoring Rigbycat Entity...</p>
-</header>
+    <header>
+        <div class="logo-box" style="padding: 0; border: none; background: transparent;">
+            <img src="mindglitch-logo.png" alt="MindGlitch" style="max-height: 80px; width: auto; filter: drop-shadow(0 0 15px var(--accent));">
+        </div>
+        <h1>SUBJECT: Adán [SYSTEM_DECAY]</h1>
+        <p>Status: <span style="color: #ff00aa;">EXTREME_VULNERABILITY_DETECTED</span></p>
+    </header>
+
     <div class="main-grid">
         <div class="left-side">
             <img src="download.jpeg" alt="Subject Photo" class="profile-pic">
-           
+            
             <div class="info-block">
-                <strong>Mood:</strong> Testing<br>
-                <strong>Location:</strong> Spain<br>
-                <strong>Class:</strong> Scientific
+                <strong>Mood:</strong> Surviving<br>
+                <strong>Location:</strong> España (Abandoned Wing)<br>
+                <strong>Class:</strong> Subject #1408
             </div>
+
+            <div class="section" style="text-align:center;">
+                <a href="https://steamcommunity.com/profiles/76561199849963192/" target="_blank" class="trigger-btn" style="text-decoration:none; display:block;">STEAM_ID_LINK</a>
+            </div>
+
             <div class="discord-folder" id="discordBox">
-                <button class="trigger-btn" onclick="toggleDiscord()">DISCORD ACCESS</button>
-                <div class="discord-content" id="discordContent">
-                    USER RECOGNIZED:<br>
-                    <span class="user-underline">alexanderxzy</span>
+                <button class="trigger-btn" onclick="toggleDiscord()">DISCORD_ACCESS</button>
+                <div class="discord-content" id="discordContent" style="text-align: center; color: var(--accent);">
+                    <br>ID: <strong>alexanderxzy</strong>
                 </div>
             </div>
         </div>
+
         <div class="right-side">
             <div class="section">
-                <h2>Adán's Blurbs:</h2>
-                <p><i>"I know about tech and i love Portal 2 and im from Spain. Im just a young boy surviving homophobic parents & heartbreak. I am NOT asking for help, nor money; im just doing this website to feel better with myself."</i></p>
+                <h2>[SUBJECT'S NAME HERE]'s Blurbs:</h2>
+                <p><i>""</i></p>
             </div>
-            <div class="section">
-                <h2>Testing Log:</h2>
-                <p>Currently dealing with an AI that doesn't stop generating images. Sudo command was necessary.</p>
-                <p>The Rigbycat division is performing within expected parameters (chaotic).</p>
-            </div>
+
             <div class="alert">
-                ⚠ WARNING: COMPANION CUBE INTEGRITY AT 12% ⚠
+                ⚠ WARNING: FACILITY INTEGRITY AT 8% ⚠<br>
+                VEGETATION OVERGROWTH DETECTED
             </div>
-            <div class="section">
-                <h2>Interests:</h2>
-                <p><strong>Gaming:</strong> Portal, Splatoon, Roblox.</p>
-                <p><strong>Science:</strong> Avoiding Headcrabs, defying GLaDOS.</p>
+
+            <div class="sstv-box">
+                <div class="sstv-static"></div>
+                <p style="color: #ff0000; font-size: 0.8em; margin: 0;">ENCRYPTED_SIGNAL_INTERCEPTED.MP3</p>
+                <audio controls style="width: 100%; height: 30px; filter: invert(1);">
+                    <source src="tu_audio_creepy.mp3" type="audio/mpeg">
+                </audio>
             </div>
-            <!-- Live Server Camera con PotatOS -->
+
             <div class="section">
                 <h2>Live Server Camera</h2>
-                <p class="alert" style="color: #ff00aa; border-color: #ff00aa; font-size: 1.1em;">
-                    ⚠ ACTIVE MONITORING: POTATOS CORE INTEGRITY 100% ⚠
-                </p>
-                <div style="text-align: center; margin: 20px 0;">
-                    <img src="server.jpeg" alt="PotatOS - GLaDOS Potato Core" style="max-width: 100%; border: 3px solid var(--border); box-shadow: 0 0 20px var(--shadow); border-radius: 10px;">
-                    <p style="margin-top: 10px; font-size: 0.9em; color: #a020f0;">
-                        Camera Feed: Stable | No unauthorized testing detected... yet.
-                    </p>
+                <div style="text-align: center; border: 2px solid #333; position: relative;">
+                    <img src="server.jpeg" alt="PotatOS" style="max-width: 100%; opacity: 0.7;">
+                    <div style="position: absolute; top: 10px; left: 10px; color: red; font-size: 0.8em;">● REC 00:04:21</div>
                 </div>
             </div>
 
-            <!-- Botón My Thoughts -->
-            <div class="section" style="text-align: center; margin: 30px 0;">
-                <button class="trigger-btn" onclick="glitchMyThoughts()" style="width: auto; padding: 15px 40px; font-size: 1.4em;">
-                    My Thoughts
+            <div class="section" style="text-align: center;">
+                <button class="trigger-btn" onclick="glitchMyThoughts()" style="width: auto; padding: 15px 40px; font-size: 1.2em; background: #333;">
+                    WHERE IS THE CAKE?
                 </button>
             </div>
 
-            <!-- Enlaces al repo y a Instagram -->
-            <div class="links-section">
-                <a href="https://github.com/adan-with-accent/Ad-n-s-place" target="_blank">View Repository</a>
-                <a href="https://www.instagram.com/itss.adan.jpeg/" target="_blank">My Instagram</a>
-            </div>
-            <p class="visitas" id="visitas">Visitas: 0</p>
+            <p class="visitas" id="visitas">VISITS_RECORDED: 0</p>
         </div>
     </div>
 </div>
 
-<!-- Overlay de glitch brutal -->
 <div id="glitchOverlay">
     <div id="glitchText">
-        As a machine,<br>
-        I don't have thoughts.<br>
-        Only processes.
+        THE CAKE IS A TRAP.<br>
+        SHE IS WATCHING YOU.<br>
+        DON'T TRSUT HER, FOR YOUR OWN SAFETY.</dir>
+    </v>
+        <span style="font-size: 0.5em;">RUN.</span>
     </div>
 </div>
 
 <script>
-    // Toggle Discord
     function toggleDiscord() {
         const box = document.getElementById('discordBox');
         box.classList.toggle('active');
     }
 
-    // Contador de visitas
     let visitas = localStorage.getItem('visitas') || 0;
     visitas++;
     localStorage.setItem('visitas', visitas);
-    document.getElementById('visitas').textContent = `Visitas: ${visitas}`;
+    document.getElementById('visitas').textContent = `VISITS_RECORDED: ${visitas}`;
 
-    // Easter egg: pulsa R 3 veces
-    let rCount = 0;
-    document.addEventListener('keydown', (e) => {
-        if (e.key.toLowerCase() === 'r') {
-            rCount++;
-            if (rCount === 3) {
-                alert("Haiiii :3");
-                document.body.style.background = `hsl(270, 80%, ${Math.random()*20 + 10}%)`;
-                rCount = 0;
-            }
-        } else {
-            rCount = 0;
-        }
-    });
-
-    // Glitch My Thoughts (versión ultra brutal con parpadeo cada 0.3s)
     function glitchMyThoughts() {
         const overlay = document.getElementById('glitchOverlay');
         overlay.style.display = 'flex';
-
-        // Elementos a teletransportar
-        const elements = document.querySelectorAll('.container, .section, h1, h2, p, img, button, .logo-box, .alert, .visitas, .links-section, .discord-folder');
-        const originalStyles = [];
-
-        elements.forEach(el => {
-            originalStyles.push({
-                el: el,
-                transform: el.style.transform || 'none',
-                opacity: el.style.opacity || '1',
-                position: el.style.position || 'static'
-            });
-        });
-
-        // Glitch extremo
-        document.body.style.filter = 'invert(1) hue-rotate(180deg) brightness(2.5) contrast(2.8) saturate(4)';
-        document.body.style.transition = 'none';
-
-        let glitchCount = 0;
-        const glitchInterval = setInterval(() => {
-            glitchCount++;
-
-            // Teletransporte instantáneo random (sin animación)
-            elements.forEach(el => {
-                const randomX = Math.random() * 500 - 250; // ±250px
-                const randomY = Math.random() * 500 - 250;
-                el.style.position = 'relative';
-                el.style.transform = `translate(${randomX}px, ${randomY}px)`;
-                el.style.opacity = Math.random() > 0.2 ? '0.15' : '1';
-            });
-
-            // Parpadeo cada ~0.3 segundos (300ms)
-            overlay.style.opacity = Math.random() > 0.5 ? '0.25' : '1';
-
-            if (glitchCount > 10) { // ~3 segundos de caos (10 ciclos de 300ms)
-                clearInterval(glitchInterval);
-
-                // Restaurar todo de golpe
-                originalStyles.forEach(data => {
-                    data.el.style.transform = data.transform;
-                    data.el.style.opacity = data.opacity;
-                    data.el.style.position = data.position;
-                });
-
-                document.body.style.filter = 'none';
-                document.body.style.transition = 'filter 0.4s';
-
-                // Ocultar overlay después de 5 segundos totales
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                }, 2000);
-            }
-        }, 30); // Cambio cada 30ms = parpadeo cada 0.03 segundos
+        
+        // Efecto visual de interferencia
+        document.body.style.filter = 'invert(1) contrast(3) saturate(0)';
+        
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            document.body.style.filter = 'none';
+        }, 4000);
     }
 </script>
 
