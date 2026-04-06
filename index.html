@@ -1,313 +1,512 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aperture Personal Terminal - Adán [OVERGROWN]</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>Adán - Tech & Portal Enthusiast</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f001a;
-            --text: #d4a5ff;
-            --accent: #a020f0;
-            --border: #7d26cd;
-            --shadow: rgba(160, 32, 240, 0.4);
-            --alert: #ff00aa;
-            --mold-green: rgba(45, 66, 19, 0.4); /* Color moho */
+            --bg-primary: #faf9f7;
+            --bg-secondary: #f3f0ed;
+            --bg-tertiary: #e8e4df;
+            --accent-warm: #c97a3a;
+            --accent-cool: #c97a3a;
+            --text-primary: #2d2520;
+            --text-secondary: #5a4f47;
+            --border-light: #ddd4cc;
+            --success: #6ba587;
+            --danger: #c94c4c;
         }
 
-        body {
-            margin: 0;
-            padding: 40px 20px;
-            font-family: 'VT323', monospace;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-            /* Textura de suciedad general */
-            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+```
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+        background: linear-gradient(135deg, var(--accent-cool) 0%, var(--accent-warm) 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    header h1 {
+        font-size: 2.5em;
+        font-weight: 700;
+        margin: 10px 0;
+        letter-spacing: -0.5px;
+    }
+
+    header p {
+        font-size: 1.1em;
+        opacity: 0.95;
+        font-weight: 500;
+    }
+
+    .logo-box {
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    .logo-box img {
+        max-height: 70px;
+        width: auto;
+        filter: brightness(0) invert(1);
+    }
+
+    /* Main Container */
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    .main-grid {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 50px;
+        margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .main-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        header h1 {
+            font-size: 1.8em;
+        }
+    }
+
+    /* Left Sidebar */
+    .left-side {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .profile-pic {
+        width: 100%;
+        border-radius: 12px;
+        border: 2px solid var(--border-light);
+        filter: grayscale(20%) brightness(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+    }
+
+    .profile-pic:hover {
+        transform: scale(1.02);
+    }
+
+    /* Cards */
+    .card {
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: var(--accent-warm);
+    }
+
+    .info-block {
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 18px;
+        margin: 0;
+        font-size: 0.95em;
+        line-height: 1.8;
+    }
+
+    .info-block strong {
+        color: var(--accent-warm);
+        font-weight: 600;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 12px 20px;
+        background: var(--accent-warm);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.95em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .btn:hover {
+        background: var(--accent-cool);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(107, 91, 149, 0.3);
+    }
+
+    .btn-block {
+        width: 100%;
+        display: block;
+    }
+
+    .btn-secondary {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        border: 1px solid var(--border-light);
+    }
+
+    .btn-secondary:hover {
+        background: var(--accent-cool);
+        color: white;
+        border-color: var(--accent-cool);
+    }
+
+    /* Discord Section */
+    .discord-folder {
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .discord-content {
+        padding: 20px;
+        text-align: center;
+        background: var(--bg-secondary);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        border-top: 1px solid var(--border-light);
+    }
+
+    .discord-folder.active .discord-content {
+        max-height: 150px;
+    }
+
+    .user-underline {
+        display: block;
+        margin-top: 10px;
+        font-weight: 600;
+        color: var(--accent-warm);
+        font-size: 1.1em;
+    }
+
+    /* Right Side Content */
+    .right-side {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .section {
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .section h2 {
+        color: var(--accent-warm);
+        font-size: 1.4em;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .section p {
+        color: var(--text-secondary);
+        margin-bottom: 10px;
+    }
+
+    .section p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Alert Box */
+    .alert {
+        background: linear-gradient(135deg, rgba(201, 76, 76, 0.1) 0%, rgba(201, 122, 58, 0.1) 100%);
+        border: 2px solid var(--danger);
+        border-radius: 10px;
+        padding: 20px;
+        color: var(--text-primary);
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .alert strong {
+        color: var(--danger);
+    }
+
+    /* Server Camera */
+    .server-camera {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--bg-secondary);
+    }
+
+    .server-camera img {
+        width: 100%;
+        display: block;
+        border-radius: 10px;
+        border: 1px solid var(--border-light);
+    }
+
+    .rec-indicator {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: var(--danger);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        font-weight: 700;
+        font-family: 'Courier Prime', monospace;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .rec-dot {
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        animation: pulse-dot 1s infinite;
+    }
+
+    @keyframes pulse-dot {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+    }
+
+    /* Links Section */
+    .links-section {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .links-section a {
+        color: var(--accent-warm);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        font-size: 0.95em;
+    }
+
+    .links-section a:hover {
+        background: var(--bg-secondary);
+        color: var(--accent-cool);
+    }
+
+    /* Visit Counter */
+    .visit-counter {
+        text-align: center;
+        margin-top: 20px;
+        padding: 15px;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+        font-size: 0.9em;
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    .visit-counter strong {
+        color: var(--accent-warm);
+        font-size: 1.3em;
+    }
+
+    /* Interests Grid */
+    .interests-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .interest-item {
+        background: var(--bg-secondary);
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 3px solid var(--accent-warm);
+    }
+
+    .interest-item strong {
+        color: var(--accent-warm);
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+        .interests-grid {
+            grid-template-columns: 1fr;
         }
 
-        /* CAPA DE PLANTAS Y MOHO (Esquinas) */
-        body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image: 
-                url('https://i.imgur.com/uX8H4pG.png'), /* Enredaderas superior derecha */
-                url('https://i.imgur.com/uX8H4pG.png'); /* Enredaderas inferior izquierda */
-            background-position: top right, bottom left;
-            background-repeat: no-repeat;
-            background-size: 400px;
-            opacity: 0.6;
-            filter: hue-rotate(280deg) brightness(0.5); /* Ajuste para que pegue con el morado */
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        body::before {
-            content: " ";
-            position: fixed;
-            inset: 0;
-            background: repeating-linear-gradient(
-                to bottom,
-                transparent 0,
-                transparent 2px,
-                rgba(160, 32, 240, 0.08) 2px,
-                rgba(160, 32, 240, 0.08) 4px
-            );
-            pointer-events: none;
-            z-index: 9999;
-            animation: scanline 10s linear infinite;
-        }
-
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            border: 3px solid var(--border);
-            background: rgba(15, 0, 26, 0.95);
-            padding: 30px;
-            box-shadow: 0 0 30px var(--shadow);
-            position: relative;
-            z-index: 10;
-            /* Efecto de suciedad en el panel */
-            background-image: url('https://www.transparenttextures.com/patterns/grunge-wall.png');
-        }
-
-        /* MANCHAS DE MOHO EN EL CONTENEDOR */
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 10% 10%, var(--mold-green) 0%, transparent 20%),
-                        radial-gradient(circle at 90% 80%, var(--mold-green) 0%, transparent 25%);
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
-        .logo-box {
-            border: 2px solid var(--border);
-            display: inline-block;
-            padding: 5px 20px;
-            margin-bottom: 10px;
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent);
+        header h1 {
+            font-size: 1.5em;
         }
 
         .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: 30px;
         }
 
-        @media (max-width: 768px) {
-            .main-grid { grid-template-columns: 1fr; }
+        .section {
+            padding: 18px;
         }
 
-        img.profile-pic {
-            width: 100%;
-            border: 3px solid var(--border);
-            filter: brightness(0.8) contrast(1.2) sepia(0.5) hue-rotate(240deg);
-            box-shadow: 0 0 15px var(--shadow);
+        .section h2 {
+            font-size: 1.2em;
         }
+    }
+</style>
+```
 
-        .info-block, .discord-folder, .section {
-            border: 1px solid var(--border);
-            padding: 15px;
-            margin: 15px 0;
-            background: rgba(160, 32, 240, 0.05);
-            position: relative;
-        }
-
-        .trigger-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-        }
-
-        .trigger-btn:hover {
-            background: #c218f5;
-            box-shadow: 0 5px 15px rgba(162, 32, 240, 0.6);
-        }
-
-        h2 {
-            background: var(--accent);
-            color: white;
-            padding: 8px 12px;
-            margin: 0 0 15px 0;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .alert {
-            border: 3px solid var(--alert);
-            padding: 15px;
-            text-align: center;
-            font-weight: bold;
-            color: var(--alert);
-            animation: pulse 2s infinite;
-            margin: 20px 0;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; } 50% { opacity: 0.6; }
-        }
-
-        /* NEW: SSTV / ANALOG HORROR SECTION */
-        .sstv-box {
-            background: #000;
-            border: 2px solid #ff0000;
-            padding: 10px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .sstv-static {
-            width: 100%;
-            height: 150px;
-            background: url('https://media.giphy.com/media/oEI9uWUic9clBKRLnN/giphy.gif');
-            background-size: cover;
-            opacity: 0.3;
-            margin-bottom: 10px;
-        }
-
-        #glitchOverlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98);
-            z-index: 99999;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        #glitchText {
-            color: #ff0000;
-            font-family: 'VT323', monospace;
-            font-size: 4em;
-            text-align: center;
-            text-shadow: 0 0 20px #ff0000;
-        }
-    </style>
 </head>
 <body>
 
+<header>
+    <div class="logo-box">
+        <img src="mindglitch-logo.png" alt="Adán">
+    </div>
+    <h1>Adán</h1>
+    <p>Tech Enthusiast • Portal Lover • Spain 🇪🇸</p>
+</header>
+
 <div class="container">
-    <header>
-        <div class="logo-box" style="padding: 0; border: none; background: transparent;">
-            <img src="mindglitch-logo.png" alt="MindGlitch" style="max-height: 80px; width: auto; filter: drop-shadow(0 0 15px var(--accent));">
-        </div>
-        <h1>SUBJECT: Adán [SYSTEM_DECAY]</h1>
-        <p>Status: <span style="color: #ff00aa;">EXTREME_VULNERABILITY_DETECTED</span></p>
-    </header>
-
     <div class="main-grid">
+        <!-- LEFT SIDEBAR -->
         <div class="left-side">
-            <img src="download.jpeg" alt="Subject Photo" class="profile-pic">
-            
-            <div class="info-block">
-                <strong>Mood:</strong> Surviving<br>
-                <strong>Location:</strong> España (Abandoned Wing)<br>
-                <strong>Class:</strong> Subject #1408
-            </div>
+            <img src="download.jpeg" alt="Adán" class="profile-pic">
 
-            <div class="section" style="text-align:center;">
-                <a href="https://steamcommunity.com/profiles/76561199849963192/" target="_blank" class="trigger-btn" style="text-decoration:none; display:block;">STEAM_ID_LINK</a>
-            </div>
+```
+        <div class="info-block">
+            <strong>Status:</strong> Surviving<br>
+            <strong>Location:</strong> España<br>
+            <strong>Class:</strong> Tech Wizard
+        </div>
 
-            <div class="discord-folder" id="discordBox">
-                <button class="trigger-btn" onclick="toggleDiscord()">DISCORD_ACCESS</button>
-                <div class="discord-content" id="discordContent" style="text-align: center; color: var(--accent);">
-                    <br>ID: <strong>alexanderxzy</strong>
+        <a href="https://steamcommunity.com/profiles/76561199849963192/" target="_blank" class="btn btn-block">Steam Profile</a>
+
+        <div class="discord-folder" id="discordBox">
+            <button class="btn btn-block btn-secondary" onclick="toggleDiscord()">Discord Access</button>
+            <div class="discord-content" id="discordContent">
+                <strong>User:</strong>
+                <span class="user-underline">alexanderxzy</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right-side">
+        <!-- About Section -->
+        <div class="section">
+            <h2>About Me</h2>
+            <p><em>"I know about tech and I love Portal 2. I'm just a young person surviving homophobic parents and heartbreak. I'm NOT asking for help nor money. I just made this website to feel better with myself."</em></p>
+        </div>
+
+        <!-- Interests Section -->
+        <div class="section">
+            <h2>Interests</h2>
+            <div class="interests-grid">
+                <div class="interest-item">
+                    <strong>🎮 Gaming</strong>
+                    Portal, Splatoon, Roblox, Half-Life
+                </div>
+                <div class="interest-item">
+                    <strong>💻 Tech</strong>
+                    Source Engine, Cybersecurity, Linux
+                </div>
+                <div class="interest-item">
+                    <strong>🖼️ Design</strong>
+                    UI/UX, Retro-Modern Aesthetics
+                </div>
+                <div class="interest-item">
+                    <strong>🔧 Dev</strong>
+                    Modding, Terminal, Game Design
                 </div>
             </div>
         </div>
 
-        <div class="right-side">
-            <div class="section">
-                <h2>[SUBJECT'S NAME HERE]'s Blurbs:</h2>
-                <p><i>"PLEASE I BEG YOU, GET ME OUT OF HERE, OH NO, SHE IS AWAKE AGAIN"</i></p>
-            </div>
+        <!-- Alert -->
+        <div class="alert">
+            <strong>🎲 Current Vibe:</strong> Testing new things, learning, growing.
+        </div>
 
-            <div class="alert">
-                ⚠ WARNING: FACILITY INTEGRITY AT 8% ⚠<br>
-                VEGETATION OVERGROWTH DETECTED
-            </div>
-
-            <div class="sstv-box">
-                <div class="sstv-static"></div>
-                <p style="color: #ff0000; font-size: 0.8em; margin: 0;">ENCRYPTED_SIGNAL_INTERCEPTED.MP3</p>
-                <audio controls style="width: 100%; height: 30px; filter: invert(1);">
-                    <source src="tu_audio_creepy.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-
-            <div class="section">
-                <h2>Live Server Camera</h2>
-                <div style="text-align: center; border: 2px solid #333; position: relative;">
-                    <img src="server.jpeg" alt="PotatOS" style="max-width: 100%; opacity: 0.7;">
-                    <div style="position: absolute; top: 10px; left: 10px; color: red; font-size: 0.8em;">● REC 00:04:21</div>
+        <!-- Server/PotatOS Section -->
+        <div class="section">
+            <h2>Portal Reference</h2>
+            <div class="server-camera">
+                <img src="server.jpeg" alt="PotatOS Core">
+                <div class="rec-indicator">
+                    <div class="rec-dot"></div>
+                    REC 00:04:21
                 </div>
             </div>
+            <p style="margin-top: 15px; text-align: center; font-size: 0.9em; color: var(--text-secondary);">
+                "The Enrichment Center reminds you that you are valuable."
+            </p>
+        </div>
 
-            <div class="section" style="text-align: center;">
-                <button class="trigger-btn" onclick="glitchMyThoughts()" style="width: auto; padding: 15px 40px; font-size: 1.2em; background: #333;">
-                    WHERE IS THE CAKE?
-                </button>
+        <!-- Footer Links -->
+        <div class="section" style="text-align: center;">
+            <div class="links-section">
+                <a href="https://github.com/adan-with-accent/Ad-n-s-place" target="_blank">GitHub</a>
+                <a href="https://www.instagram.com/itss.adan.jpeg/" target="_blank">Instagram</a>
             </div>
-
-            <p class="visitas" id="visitas">VISITS_RECORDED: 0</p>
+            <div class="visit-counter">
+                You are visitor number <strong id="visitas">0</strong>
+            </div>
         </div>
     </div>
 </div>
+```
 
-<div id="glitchOverlay">
-    <div id="glitchText">
-        THE CAKE IS A TRAP.<br>
-        SHE IS WATCHING YOU.<br>
-        DON'T TRSUT HER, FOR YOUR OWN SAFETY.</dir>
-    </v>
-        <span style="font-size: 0.5em;">RUN.</span>
-    </div>
 </div>
 
 <script>
+    // Toggle Discord
     function toggleDiscord() {
         const box = document.getElementById('discordBox');
         box.classList.toggle('active');
     }
 
+    // Visit Counter
     let visitas = localStorage.getItem('visitas') || 0;
     visitas++;
     localStorage.setItem('visitas', visitas);
-    document.getElementById('visitas').textContent = `VISITS_RECORDED: ${visitas}`;
-
-    function glitchMyThoughts() {
-        const overlay = document.getElementById('glitchOverlay');
-        overlay.style.display = 'flex';
-        
-        // Efecto visual de interferencia
-        document.body.style.filter = 'invert(1) contrast(3) saturate(0)';
-        
-        setTimeout(() => {
-            overlay.style.display = 'none';
-            document.body.style.filter = 'none';
-        }, 4000);
-    }
+    document.getElementById('visitas').textContent = visitas;
 </script>
 
 </body>
