@@ -1,512 +1,543 @@
 <!DOCTYPE html>
-
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>Adán - Tech & Portal Enthusiast</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* ── DARK THEME (default) ── */
         :root {
-            --bg-primary: #faf9f7;
-            --bg-secondary: #f3f0ed;
-            --bg-tertiary: #e8e4df;
-            --accent-warm: #c97a3a;
-            --accent-cool: #c97a3a;
-            --text-primary: #2d2520;
-            --text-secondary: #5a4f47;
-            --border-light: #ddd4cc;
-            --success: #6ba587;
-            --danger: #c94c4c;
+            --bg-primary:    #202020;
+            --bg-secondary:  #2a2a2a;
+            --bg-tertiary:   #303030;
+            --accent:        #c8603f;
+            --accent-hover:  #e07050;
+            --text-primary:  #f9f9f9;
+            --text-secondary:#b0a89e;
+            --border:        #3d3d3d;
+            --danger:        #c94c4c;
+            --header-bg1:    #1a1a1a;
+            --header-bg2:    #2c1a12;
         }
 
-```
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Inter', sans-serif;
-        background: var(--bg-primary);
-        color: var(--text-primary);
-        line-height: 1.6;
-        min-height: 100vh;
-    }
-
-    /* Header */
-    header {
-        background: linear-gradient(135deg, var(--accent-cool) 0%, var(--accent-warm) 100%);
-        color: white;
-        padding: 40px 20px;
-        text-align: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    header h1 {
-        font-size: 2.5em;
-        font-weight: 700;
-        margin: 10px 0;
-        letter-spacing: -0.5px;
-    }
-
-    header p {
-        font-size: 1.1em;
-        opacity: 0.95;
-        font-weight: 500;
-    }
-
-    .logo-box {
-        display: inline-block;
-        margin-bottom: 20px;
-    }
-
-    .logo-box img {
-        max-height: 70px;
-        width: auto;
-        filter: brightness(0) invert(1);
-    }
-
-    /* Main Container */
-    .container {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 40px 20px;
-    }
-
-    .main-grid {
-        display: grid;
-        grid-template-columns: 300px 1fr;
-        gap: 50px;
-        margin-top: 40px;
-    }
-
-    @media (max-width: 768px) {
-        .main-grid {
-            grid-template-columns: 1fr;
-            gap: 40px;
+        /* ── LIGHT THEME ── */
+        [data-theme="light"] {
+            --bg-primary:    #faf9f7;
+            --bg-secondary:  #f3f0ed;
+            --bg-tertiary:   #ffffff;
+            --accent:        #c8603f;
+            --accent-hover:  #a84e32;
+            --text-primary:  #2d2520;
+            --text-secondary:#5a4f47;
+            --border:        #ddd4cc;
+            --danger:        #c94c4c;
+            --header-bg1:    #c8603f;
+            --header-bg2:    #a84e32;
         }
-        
-        header h1 {
-            font-size: 1.8em;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Ubuntu', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
         }
-    }
 
-    /* Left Sidebar */
-    .left-side {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .profile-pic {
-        width: 100%;
-        border-radius: 12px;
-        border: 2px solid var(--border-light);
-        filter: grayscale(20%) brightness(1.05);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease;
-    }
-
-    .profile-pic:hover {
-        transform: scale(1.02);
-    }
-
-    /* Cards */
-    .card {
-        background: white;
-        border: 1px solid var(--border-light);
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-        transition: all 0.3s ease;
-    }
-
-    .card:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        border-color: var(--accent-warm);
-    }
-
-    .info-block {
-        background: white;
-        border: 1px solid var(--border-light);
-        border-radius: 10px;
-        padding: 18px;
-        margin: 0;
-        font-size: 0.95em;
-        line-height: 1.8;
-    }
-
-    .info-block strong {
-        color: var(--accent-warm);
-        font-weight: 600;
-    }
-
-    /* Buttons */
-    .btn {
-        padding: 12px 20px;
-        background: var(--accent-warm);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 0.95em;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-block;
-        text-align: center;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .btn:hover {
-        background: var(--accent-cool);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(107, 91, 149, 0.3);
-    }
-
-    .btn-block {
-        width: 100%;
-        display: block;
-    }
-
-    .btn-secondary {
-        background: var(--bg-tertiary);
-        color: var(--text-primary);
-        border: 1px solid var(--border-light);
-    }
-
-    .btn-secondary:hover {
-        background: var(--accent-cool);
-        color: white;
-        border-color: var(--accent-cool);
-    }
-
-    /* Discord Section */
-    .discord-folder {
-        background: white;
-        border: 1px solid var(--border-light);
-        border-radius: 10px;
-        padding: 0;
-        overflow: hidden;
-    }
-
-    .discord-content {
-        padding: 20px;
-        text-align: center;
-        background: var(--bg-secondary);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-        border-top: 1px solid var(--border-light);
-    }
-
-    .discord-folder.active .discord-content {
-        max-height: 150px;
-    }
-
-    .user-underline {
-        display: block;
-        margin-top: 10px;
-        font-weight: 600;
-        color: var(--accent-warm);
-        font-size: 1.1em;
-    }
-
-    /* Right Side Content */
-    .right-side {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .section {
-        background: white;
-        border: 1px solid var(--border-light);
-        border-radius: 10px;
-        padding: 25px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-    }
-
-    .section h2 {
-        color: var(--accent-warm);
-        font-size: 1.4em;
-        margin-bottom: 15px;
-        font-weight: 700;
-    }
-
-    .section p {
-        color: var(--text-secondary);
-        margin-bottom: 10px;
-    }
-
-    .section p:last-child {
-        margin-bottom: 0;
-    }
-
-    /* Alert Box */
-    .alert {
-        background: linear-gradient(135deg, rgba(201, 76, 76, 0.1) 0%, rgba(201, 122, 58, 0.1) 100%);
-        border: 2px solid var(--danger);
-        border-radius: 10px;
-        padding: 20px;
-        color: var(--text-primary);
-        font-weight: 600;
-        text-align: center;
-    }
-
-    .alert strong {
-        color: var(--danger);
-    }
-
-    /* Server Camera */
-    .server-camera {
-        position: relative;
-        border-radius: 10px;
-        overflow: hidden;
-        background: var(--bg-secondary);
-    }
-
-    .server-camera img {
-        width: 100%;
-        display: block;
-        border-radius: 10px;
-        border: 1px solid var(--border-light);
-    }
-
-    .rec-indicator {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        background: var(--danger);
-        color: white;
-        padding: 4px 10px;
-        border-radius: 4px;
-        font-size: 0.8em;
-        font-weight: 700;
-        font-family: 'Courier Prime', monospace;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .rec-dot {
-        width: 6px;
-        height: 6px;
-        background: white;
-        border-radius: 50%;
-        animation: pulse-dot 1s infinite;
-    }
-
-    @keyframes pulse-dot {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.4; }
-    }
-
-    /* Links Section */
-    .links-section {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 20px;
-    }
-
-    .links-section a {
-        color: var(--accent-warm);
-        text-decoration: none;
-        font-weight: 600;
-        padding: 8px 12px;
-        border-radius: 6px;
-        transition: all 0.3s ease;
-        font-size: 0.95em;
-    }
-
-    .links-section a:hover {
-        background: var(--bg-secondary);
-        color: var(--accent-cool);
-    }
-
-    /* Visit Counter */
-    .visit-counter {
-        text-align: center;
-        margin-top: 20px;
-        padding: 15px;
-        background: var(--bg-secondary);
-        border-radius: 8px;
-        font-size: 0.9em;
-        color: var(--text-secondary);
-        font-weight: 500;
-    }
-
-    .visit-counter strong {
-        color: var(--accent-warm);
-        font-size: 1.3em;
-    }
-
-    /* Interests Grid */
-    .interests-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-top: 15px;
-    }
-
-    .interest-item {
-        background: var(--bg-secondary);
-        padding: 15px;
-        border-radius: 8px;
-        border-left: 3px solid var(--accent-warm);
-    }
-
-    .interest-item strong {
-        color: var(--accent-warm);
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    /* Responsive tweaks */
-    @media (max-width: 600px) {
-        .interests-grid {
-            grid-template-columns: 1fr;
+        /* ── HEADER ── */
+        header {
+            background: linear-gradient(135deg, var(--header-bg1) 0%, var(--header-bg2) 100%);
+            border-bottom: 2px solid var(--accent);
+            color: #f9f9f9;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
         }
 
         header h1 {
-            font-size: 1.5em;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 2.6em;
+            font-weight: 700;
+            margin: 10px 0;
+            letter-spacing: 1px;
+            color: #f9f9f9;
         }
 
+        header p {
+            font-size: 1.05em;
+            color: rgba(255,255,255,0.78);
+            font-family: 'Ubuntu Mono', monospace;
+        }
+
+        .logo-box { display: inline-block; margin-bottom: 20px; }
+        .logo-box img { max-height: 70px; width: auto; filter: brightness(0) invert(1); }
+
+        .header-accent {
+            display: inline-block;
+            width: 40px; height: 3px;
+            background: rgba(255,255,255,0.5);
+            margin: 12px 8px 0;
+            border-radius: 2px;
+            vertical-align: middle;
+        }
+
+        /* ── THEME TOGGLE ── */
+        .theme-toggle {
+            position: absolute;
+            top: 18px; right: 18px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 50px;
+            padding: 7px 14px;
+            cursor: pointer;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 0.8em;
+            color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s, transform 0.2s;
+            user-select: none;
+        }
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.22);
+            transform: translateY(-1px);
+        }
+        .theme-toggle .toggle-icon { font-size: 1.1em; }
+
+        /* ── LAYOUT ── */
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
         .main-grid {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: 280px 1fr;
             gap: 30px;
+            margin-top: 30px;
         }
+
+        @media (max-width: 768px) {
+            .main-grid { grid-template-columns: 1fr; gap: 24px; }
+            header h1 { font-size: 1.8em; }
+            .theme-toggle { top: 12px; right: 12px; padding: 5px 10px; font-size: 0.72em; }
+        }
+
+        /* ── LEFT SIDEBAR ── */
+        .left-side { display: flex; flex-direction: column; gap: 16px; }
+
+        .profile-pic {
+            width: 100%;
+            border-radius: 18px;
+            border: 2px solid var(--border);
+            filter: grayscale(15%) brightness(0.9);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .profile-pic:hover { transform: scale(1.02); border-color: var(--accent); }
+
+        /* ── SHARED CARD BASE ── */
+        .card, .info-block, .section, .discord-folder {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            transition: border-color 0.25s, background 0.3s;
+        }
+
+        .info-block {
+            padding: 16px 18px;
+            font-size: 0.92em;
+            line-height: 2;
+            font-family: 'Ubuntu Mono', monospace;
+        }
+        .info-block strong { color: var(--accent); font-weight: 700; }
+
+        /* ── BUTTONS ── */
+        .btn {
+            padding: 11px 20px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.92em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-family: 'Ubuntu', Arial, sans-serif;
+            letter-spacing: 0.3px;
+        }
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(200, 96, 63, 0.35);
+        }
+        .btn-block { width: 100%; display: block; }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* ── DISCORD ── */
+        .discord-folder { overflow: hidden; }
+
+        .discord-content {
+            padding: 18px 20px;
+            text-align: center;
+            background: var(--bg-secondary);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            border-top: 1px solid var(--border);
+        }
+        .discord-folder.active .discord-content { max-height: 120px; }
+
+        .user-underline {
+            display: block;
+            margin-top: 8px;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.05em;
+            font-family: 'Ubuntu Mono', monospace;
+        }
+
+        /* ── SECTIONS ── */
+        .right-side { display: flex; flex-direction: column; gap: 20px; }
 
         .section {
-            padding: 18px;
+            padding: 22px 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
         }
+        .section:hover { border-color: var(--accent); }
 
+        /* Times New Roman for section titles */
         .section h2 {
-            font-size: 1.2em;
+            font-family: 'Times New Roman', Times, serif;
+            color: var(--accent);
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
         }
-    }
-</style>
-```
 
+        /* Ubuntu / Arial for content */
+        .section p {
+            font-family: 'Ubuntu', Arial, sans-serif;
+            color: var(--text-secondary);
+            font-size: 0.97em;
+            margin-bottom: 8px;
+        }
+        .section p:last-child { margin-bottom: 0; }
+
+        /* Quote */
+        .quote-text {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary) !important;
+            border-left: 3px solid var(--accent);
+            padding-left: 14px;
+            line-height: 1.7;
+        }
+
+        /* ── ALERT ── */
+        .alert {
+            background: rgba(200, 96, 63, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 18px;
+            padding: 16px 20px;
+            color: var(--text-primary);
+            font-weight: 500;
+            text-align: center;
+            font-family: 'Ubuntu', Arial, sans-serif;
+            font-size: 0.95em;
+        }
+        .alert strong { color: var(--accent); font-family: 'Times New Roman', Times, serif; font-size: 1.05em; }
+
+        /* ── SERVER CAM ── */
+        .server-camera {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #111;
+        }
+        .server-camera img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            filter: brightness(0.85);
+        }
+        .rec-indicator {
+            position: absolute;
+            top: 12px; left: 12px;
+            background: var(--danger);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.78em;
+            font-weight: 700;
+            font-family: 'Ubuntu Mono', monospace;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .rec-dot {
+            width: 6px; height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse-dot 1s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ── INTERESTS ── */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .interest-item {
+            background: var(--bg-secondary);
+            padding: 13px 15px;
+            border-radius: 14px;
+            border-left: 3px solid var(--accent);
+            font-size: 0.93em;
+            transition: background 0.3s;
+        }
+        .interest-item strong {
+            font-family: 'Times New Roman', Times, serif;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 3px;
+            font-size: 1em;
+        }
+        .interest-item span {
+            font-family: 'Ubuntu', Arial, sans-serif;
+            color: var(--text-secondary);
+        }
+
+        /* ── LINKS ── */
+        .links-section {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .links-section a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            transition: all 0.25s ease;
+            font-size: 0.9em;
+            font-family: 'Ubuntu Mono', monospace;
+        }
+        .links-section a:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* ── VISITOR COUNTER ── */
+        .visit-counter {
+            text-align: center;
+            margin-top: 16px;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            font-size: 0.88em;
+            color: var(--text-secondary);
+            font-family: 'Ubuntu Mono', monospace;
+            transition: background 0.3s;
+        }
+        .visit-counter strong { color: var(--accent); font-size: 1.2em; }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            .interests-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.5em; }
+            .section { padding: 16px; }
+            .section h2 { font-size: 1.1em; }
+        }
+    </style>
 </head>
 <body>
 
 <header>
+    <!-- Theme toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+        <span class="toggle-icon">🌙</span>
+        <span id="themeLabel">Light mode</span>
+    </button>
+
     <div class="logo-box">
         <img src="mindglitch-logo.png" alt="Adán">
     </div>
     <h1>Adán</h1>
+    <span class="header-accent"></span>
     <p>Tech Enthusiast • Portal Lover • Spain 🇪🇸</p>
 </header>
 
 <div class="container">
     <div class="main-grid">
+
         <!-- LEFT SIDEBAR -->
         <div class="left-side">
             <img src="download.jpeg" alt="Adán" class="profile-pic">
 
-```
-        <div class="info-block">
-            <strong>Status:</strong> Surviving<br>
-            <strong>Location:</strong> España<br>
-            <strong>Class:</strong> Tech Wizard
+            <div class="info-block">
+                <strong>Status:</strong> Surviving<br>
+                <strong>Location:</strong> España<br>
+                <strong>Class:</strong> Tech Wizard
+            </div>
+
+            <a href="https://steamcommunity.com/profiles/76561199849963192/" target="_blank" class="btn btn-block">Steam Profile</a>
+
+            <div class="discord-folder" id="discordBox">
+                <button class="btn btn-block btn-secondary" onclick="toggleDiscord()">Discord Access</button>
+                <div class="discord-content">
+                    <strong style="color: var(--text-secondary); font-family: 'Ubuntu Mono', monospace; font-size:0.82em; letter-spacing:1px;">USER</strong>
+                    <span class="user-underline">alexanderxzy</span>
+                </div>
+            </div>
         </div>
 
-        <a href="https://steamcommunity.com/profiles/76561199849963192/" target="_blank" class="btn btn-block">Steam Profile</a>
+        <!-- RIGHT SIDE -->
+        <div class="right-side">
 
-        <div class="discord-folder" id="discordBox">
-            <button class="btn btn-block btn-secondary" onclick="toggleDiscord()">Discord Access</button>
-            <div class="discord-content" id="discordContent">
-                <strong>User:</strong>
-                <span class="user-underline">alexanderxzy</span>
+            <div class="section">
+                <h2>About Me</h2>
+                <p class="quote-text">"I know about tech and I love Portal 2. I'm just a young person surviving homophobic parents and heartbreak. I'm NOT asking for help nor money. I just made this website to feel better with myself."</p>
             </div>
+
+            <div class="section">
+                <h2>Interests</h2>
+                <div class="interests-grid">
+                    <div class="interest-item">
+                        <strong>Gaming</strong>
+                        <span>Portal, Splatoon, Roblox, Half-Life</span>
+                    </div>
+                    <div class="interest-item">
+                        <strong>Tech</strong>
+                        <span>Source Engine, Cybersecurity, Linux</span>
+                    </div>
+                    <div class="interest-item">
+                        <strong>Design</strong>
+                        <span>UI/UX, Retro-Modern Aesthetics</span>
+                    </div>
+                    <div class="interest-item">
+                        <strong>Dev</strong>
+                        <span>Modding, Terminal, Game Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert">
+                <strong>Current Vibe:</strong> Testing new things, learning, growing.
+            </div>
+
+            <div class="section">
+                <h2>LIVE Server Cam</h2>
+                <div class="server-camera">
+                    <img src="server.jpeg" alt="PotatOS Core">
+                    <div class="rec-indicator">
+                        <div class="rec-dot"></div>
+                        REC 00:04:21
+                    </div>
+                </div>
+                <p style="margin-top: 14px; text-align: center; font-size: 0.88em; font-family: 'Ubuntu Mono', monospace;">
+                    "The Enrichment Center reminds you that you are valuable."
+                </p>
+            </div>
+
+            <div class="section" style="text-align: center;">
+                <div class="links-section">
+                    <a href="https://github.com/adan-with-accent/Ad-n-s-place" target="_blank">GitHub</a>
+                    <a href="https://www.instagram.com/itss.adan.jpeg/" target="_blank">Instagram</a>
+                </div>
+                <div class="visit-counter">
+                    You are visitor number <strong id="visitas">…</strong>
+                </div>
+            </div>
+
         </div>
     </div>
-
-    <!-- RIGHT SIDE -->
-    <div class="right-side">
-        <!-- About Section -->
-        <div class="section">
-            <h2>About Me</h2>
-            <p><em>"I know about tech and I love Portal 2. I'm just a young person surviving homophobic parents and heartbreak. I'm NOT asking for help nor money. I just made this website to feel better with myself."</em></p>
-        </div>
-
-        <!-- Interests Section -->
-        <div class="section">
-            <h2>Interests</h2>
-            <div class="interests-grid">
-                <div class="interest-item">
-                    <strong>Gaming</strong>
-                    Portal, Splatoon, Roblox, Half-Life
-                </div>
-                <div class="interest-item">
-                    <strong> Tech</strong>
-                    Source Engine, Cybersecurity, Linux
-                </div>
-                <div class="interest-item">
-                    <strong>Design</strong>
-                    UI/UX, Retro-Modern Aesthetics
-                </div>
-                <div class="interest-item">
-                    <strong>Dev</strong>
-                    Modding, Terminal, Game Design
-                </div>
-            </div>
-        </div>
-
-        <!-- Alert -->
-        <div class="alert">
-            <strong>Current Vibe:</strong> Testing new things, learning, growing.
-        </div>
-
-        <!-- Server/PotatOS Section -->
-        <div class="section">
-            <h2>LIVE server Cam:</h2>
-            <div class="server-camera">
-                <img src="server.jpeg" alt="PotatOS Core">
-                <div class="rec-indicator">
-                    <div class="rec-dot"></div>
-                    REC 00:04:21
-                </div>
-            </div>
-            <p style="margin-top: 15px; text-align: center; font-size: 0.9em; color: var(--text-secondary);">
-                "The Enrichment Center reminds you that you are valuable."
-            </p>
-        </div>
-
-        <!-- Footer Links -->
-        <div class="section" style="text-align: center;">
-            <div class="links-section">
-                <a href="https://github.com/adan-with-accent/Ad-n-s-place" target="_blank">GitHub</a>
-                <a href="https://www.instagram.com/itss.adan.jpeg/" target="_blank">Instagram</a>
-            </div>
-            <div class="visit-counter">
-                You are visitor number <strong id="visitas">0</strong>
-            </div>
-        </div>
-    </div>
-</div>
-```
-
 </div>
 
 <script>
-    // Toggle Discord
-    function toggleDiscord() {
-        const box = document.getElementById('discordBox');
-        box.classList.toggle('active');
+    /* ── THEME TOGGLE ── */
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const themeLabel = document.getElementById('themeLabel');
+
+    // Restore saved theme
+    const savedTheme = localStorage.getItem('adan-theme') || 'dark';
+    applyTheme(savedTheme);
+
+    function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+            themeLabel.textContent = 'Light mode';
+            themeBtn.querySelector('.toggle-icon').textContent = '🌙';
+        } else {
+            themeLabel.textContent = 'Dark mode';
+            themeBtn.querySelector('.toggle-icon').textContent = '☀️';
+        }
     }
 
-    // Visit Counter
-    let visitas = localStorage.getItem('visitas') || 0;
-    visitas++;
-    localStorage.setItem('visitas', visitas);
-    document.getElementById('visitas').textContent = visitas;
+    function toggleTheme() {
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('adan-theme', next);
+    }
+
+    /* ── DISCORD ── */
+    function toggleDiscord() {
+        document.getElementById('discordBox').classList.toggle('active');
+    }
+
+    /* ── VISITOR COUNTER (shared via Anthropic storage API) ── */
+    async function loadAndIncrementCounter() {
+        const el = document.getElementById('visitas');
+        try {
+            // Try to get the current count
+            let count = 0;
+            try {
+                const result = await window.storage.get('visitor-count', true);
+                count = parseInt(result.value) || 0;
+            } catch (_) {
+                // Key doesn't exist yet, start from 0
+                count = 0;
+            }
+            count++;
+            await window.storage.set('visitor-count', String(count), true);
+            el.textContent = count.toLocaleString();
+        } catch (err) {
+            // Fallback to localStorage if storage API unavailable
+            let local = parseInt(localStorage.getItem('visitas') || '0') + 1;
+            localStorage.setItem('visitas', local);
+            el.textContent = local;
+        }
+    }
+
+    loadAndIncrementCounter();
 </script>
 
 </body>
